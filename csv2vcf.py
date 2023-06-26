@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import csv
 import json
@@ -19,7 +20,7 @@ class Csv:
             k: v for k, v in tmp.items() if v is not None
         }
         if self.name_to_value_dict.get("fn", "").count(" ") == 1:
-            sname, fname = self.name_to_value_dict["fn"].split(" ")
+            fname, sname = self.name_to_value_dict["fn"].split(" ")
             sname = sname.capitalize()
             fname = fname.capitalize()
             self.name_to_value_dict["n"] = "{sname};{fname};;;".format(
@@ -34,7 +35,7 @@ class Csv:
             for propname in prop_names
         }
         res = ['BEGIN:VCARD', 'VERSION:3.0', 'CALSCALE=gregorian']
-        res.extend(['KIND:individual', 'ORG:LMA'])          # TODO
+        res.append('KIND:individual')
         for propname, propvalue in self.name_to_value_dict.items():
             res.append(prop_fmt_dict[propname].format(
                 propname=propname.upper(),
@@ -79,7 +80,8 @@ if __name__ == '__main__':
         )
     input_file = args[0]
     output_dir = args[1]
-    input_file_format = json.loads(args[2])
+    jsonInput = '{ "fn": 0, "email": 2, "tel": 3, "categories": 1 }'
+    input_file_format = json.loads(jsonInput)
     if not os.path.isdir(output_dir):
         error_msg = "{} is not a directory".format(output_dir)
         raise Exception(error_msg)
@@ -87,6 +89,11 @@ if __name__ == '__main__':
     students_array = csv_to_students_array(input_file, input_file_format)
     for student in students_array:
         filename = student.file_name()
+
+        illegal = '[\\/:"*?<>|]+'  # illegal characters for windows filenames
+        # remove all illegal characters
+        filename = re.sub(illegal, '', filename)
+
         filepath = os.path.join(output_dir, filename)
         with open(filepath, "w") as f:
             f.write(str(student))
