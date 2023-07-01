@@ -74,9 +74,9 @@ if __name__ == '__main__':
     conf_fmt = "  - Data for {value[fn]} written to {filename}"
     parser = OptionParser()
     (options, args) = parser.parse_args()
-    if len(args) !=3:
+    if len(args) !=2:
         raise Exception(
-            "Wrong number of arguments: {:d} given instead of 3".format(len(args))
+            "Wrong number of arguments: {:d} given instead of 2".format(len(args))
         )
     input_file = args[0]
     output_dir = args[1]
