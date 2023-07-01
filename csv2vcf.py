@@ -80,7 +80,9 @@ if __name__ == '__main__':
         )
     input_file = args[0]
     output_dir = args[1]
-    jsonInput = '{ "fn": 0, "email": 2, "tel": 3, "categories": 1 }'
+    # get json from index.json
+    # jsonInput = '{ "fn": 0, "email": 2, "tel": 3, "categories": 1 }'
+    jsonInput = "./index.json"
     input_file_format = json.loads(jsonInput)
     if not os.path.isdir(output_dir):
         error_msg = "{} is not a directory".format(output_dir)
