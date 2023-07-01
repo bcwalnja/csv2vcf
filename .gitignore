@@ -1,4 +1,4 @@
-#Do not include forgotten csv test files
+#Do not include csv files, thus preventing exposing private data
 *.csv
 
 # Byte-compiled / optimized / DLL files
