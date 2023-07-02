@@ -1,0 +1,29 @@
+Name,Status,Description,Example
+ADR,Optional,A structured representation of the physical delivery address for the vCard object.,ADR;TYPE=home:;;123 Main St.;Springfield;IL;12345;USA
+AGENT,Optional,"Information about another person who will act on behalf of the vCard object. Typically this would be an area administrator, assistant, or secretary for the individual. Can be either a URL or an embedded vCard.",AGENT:http://mi6.gov.uk/007
+BDAY,Optional,Date of birth of the individual associated with the vCard.,BDAY:19700310
+CATEGORIES,Optional,"A list of ""tags"" that can be used to describe the object represented by this vCard.","CATEGORIES:swimmer,biker"
+CLASS,Optional,Describes the sensitivity of the information in the vCard.,CLASS:public
+EMAIL,Optional,The address for electronic mail communication with the vCard object.,EMAIL:johndoe@hotmail.com
+MAILER,Optional,Type of email program used.,MAILER:Thunderbird
+NAME,Optional,Provides a textual representation of the SOURCE property.,
+NICKNAME,Optional,One or more descriptive/familiar names for the object represented by this vCard.,"NICKNAME:Jon,Johnny"
+NOTE,Optional,Specifies supplemental information or a comment that is associated with the vCard.,"NOTE:I am proficient in Tiger-Crane Style,\nand I am more than proficient in the exquisite art of the Samurai sword."
+ORG,Optional,The name and optionally the unit(s) of the organization associated with the vCard object. This property is based on the X.520 Organization Name attribute and the X.520 Organization Unit attribute.,ORG:Google;GMail Team;Spam Detection Squad
+PRODID,Optional,The identifier for the product that created the vCard object.,PRODID:-//ONLINE DIRECTORY//NONSGML Version 1//EN
+PROFILE,Optional,States that the vCard is a vCard.,PROFILE:VCARD
+REV,Optional,A timestamp for the last time the vCard was updated.,REV:20121201T134211Z
+ROLE,Optional,"The role, occupation, or business category of the vCard object within an organization.",ROLE:Executive
+SOURCE,Optional,A URL that can be used to get the latest version of this vCard.,SOURCE:http://johndoe.com/vcard.vcf
+TEL,Optional,The canonical number string for a telephone number for telephony communication with the vCard object.,TEL;TYPE=cell:(123) 555-5832
+TITLE,Optional,"Specifies the job title, functional position or function of the individual associated with the vCard object within an organization.",TITLE:V.P. Research and Development
+UID,Optional,"Specifies a value that represents a persistent, globally unique identifier associated with the object.",UID:urn:uuid:da418720-3754-4631-a169-db89a02b831b
+URL,Optional,A URL pointing to a website that represents the person in some way.,URL:http://www.johndoe.com
+BEGIN,Required,All vCards must start with this property.,BEGIN:VCARD
+END,Required,All vCards must end with this property.,END:VCARD
+FN,Required,The formatted name string associated with the vCard object.,FN:Dr. John Doe
+N,Required,"A structured representation of the name of the person, place or thing associated with the vCard object. Structure recognizes, in order separated by semicolons: Family Name, Given Name, Additional/Middle Names, Honorific Prefixes, and Honorific Suffixes[4]",N:Doe;John;;Dr;
+VERSION,Required,"The version of the vCard specification. In version 4.0, this must come right after the BEGIN property.",VERSION:3.0
+,,,
+Source: Wikipedia contributors. (2023). VCard. en.wikipedia.org.,,,https://en.wikipedia.org/wiki/Vcard
+Note: Trimmed from Wikipedia information to only include VERSION 3.0,,,
