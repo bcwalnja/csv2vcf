@@ -8,6 +8,8 @@ from optparse import OptionParser
 
 input_file = "contacts.csv"
 output_dir = ".\output"
+index_file = "index.json"
+vcard_prop_file = "vcard.json"
 prop_names = ['n', 'fn', 'email', 'tel', 'bday', 'categories']
 
 
@@ -21,15 +23,26 @@ class Csv:
         self.name_to_value_dict = {
             k: v for k, v in tmp.items() if v is not None
         }
-        if self.name_to_value_dict.get("fn", "").count(" ") == 1:
-            fname, sname = self.name_to_value_dict["fn"].split(" ")
+
+        #if the name has a space in it, take the last word as the sname
+        #and the rest as the fname
+        #else if it doesn't have a space, take the whole thing as the fname
+        #and leave the sname blank
+        fn = self.name_to_value_dict.get("fn", "")
+        if " " in fn:
+            words = fn.split(" ")
+            sname, fname = words[-1], " ".join(words[:-1])
             sname = sname.capitalize()
             fname = fname.capitalize()
-            self.name_to_value_dict["n"] = "{sname};{fname};;;".format(
-                sname=sname,
-                fname=fname,
-                **self.name_to_value_dict
-            )
+        else:
+            fname = fn.capitalize()
+            sname = ""
+        
+        self.name_to_value_dict["n"] = "{sname};{fname};;;".format(
+            sname=sname,
+            fname=fname,
+            **self.name_to_value_dict
+        )
 
     def __str__(self):
         prop_fmt_dict = {
