@@ -59,17 +59,17 @@ class Csv:
         return unidecode.unidecode(filename)
 
 
-def csv_to_students_array(input_file, input_file_format):
+def csv_to_contacts_array(input_file, input_file_format):
     index_to_name_dict = {prop_name: None for prop_name in prop_names}
     for propname in prop_names:
         index_to_name_dict[propname] = input_file_format.get(propname, None)
     with open(input_file, 'r') as source_file:
         reader = csv.reader(source_file)
-        students_array = []
+        contacts_array = []
         for row in reader:
-            student = Csv(row, input_file_format)
-            students_array.append(student)
-    return students_array
+            contact = Csv(row, input_file_format)
+            contacts_array.append(contact)
+    return contacts_array
 
 
 if __name__ == '__main__':
@@ -96,17 +96,17 @@ if __name__ == '__main__':
         error_msg = "{} is not a directory".format(output_dir)
         raise Exception(error_msg)
     print("Creating files under {output_dir}".format(output_dir=output_dir))
-    students_array = csv_to_students_array(input_file, input_file_format)
-    for student in students_array:
-        filename = student.file_name()
+    contacts_array = csv_to_contacts_array(input_file, input_file_format)
+    for contact in contacts_array:
+        filename = contact.file_name()
 
         illegal = '[\\/:"*?<>|]+'
         filename = re.sub(illegal, '', filename)
 
         filepath = os.path.join(output_dir, filename)
         with open(filepath, "w") as f:
-            f.write(str(student))
+            f.write(str(contact))
             print(conf_fmt.format(
-                value=student.name_to_value_dict,
+                value=contact.name_to_value_dict,
                 filename = filename
             ))
