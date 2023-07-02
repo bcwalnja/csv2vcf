@@ -6,15 +6,16 @@ import json
 import unidecode
 from optparse import OptionParser
 
-input_file = "contacts.csv"
+input_file = "..\contacts2.csv"
 output_dir = ".\output"
 index_file = "index.json"
 vcard_prop_file = "vcard.json"
-prop_names = ['n', 'fn', 'email', 'tel', 'bday', 'categories']
 
 
 class Csv:
     def __init__(self, value_list, name_to_index_dict):
+        #get prop names from vcard.json
+        prop_names = json.loads(open(vcard_prop_file).read())
         tmp = {
             propname: value_list[name_to_index_dict[propname]]
             for propname in prop_names
@@ -45,6 +46,7 @@ class Csv:
         )
 
     def __str__(self):
+        prop_names = json.loads(open(vcard_prop_file).read())
         prop_fmt_dict = {
             propname: "{propname}:{propvalue}"
             for propname in prop_names
@@ -73,6 +75,7 @@ class Csv:
 
 
 def csv_to_contacts_array(input_file, input_file_format):
+    prop_names = json.loads(open(vcard_prop_file).read())
     index_to_name_dict = {prop_name: None for prop_name in prop_names}
     for propname in prop_names:
         index_to_name_dict[propname] = input_file_format.get(propname, None)

@@ -1,5 +1,6 @@
-#Do not include csv files, thus preventing exposing private data
+#Do not include csv or vcf files, thus preventing exposing private data
 *.csv
+*.vcf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
