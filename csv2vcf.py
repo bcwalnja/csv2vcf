@@ -6,6 +6,8 @@ import json
 import unidecode
 from optparse import OptionParser
 
+input_file = "contacts.csv"
+output_dir = ".\output"
 prop_names = ['n', 'fn', 'email', 'tel', 'bday', 'categories']
 
 
@@ -74,15 +76,21 @@ if __name__ == '__main__':
     conf_fmt = "  - Data for {value[fn]} written to {filename}"
     parser = OptionParser()
     (options, args) = parser.parse_args()
-    if len(args) !=2:
-        raise Exception(
-            "Wrong number of arguments: {:d} given instead of 2".format(len(args))
-        )
-    input_file = args[0]
-    output_dir = args[1]
+    
+    if input_file == "":
+        if len(args) < 1:
+            error_msg = "No input file specified"
+            raise Exception(error_msg)
+        input_file = args[0]
+    if output_dir == "":
+        if len(args) < 2:
+            error_msg = "No output directory specified"
+            raise Exception(error_msg)
+        output_dir = args[1]
+    
     # get json from index.json
     # jsonInput = '{ "fn": 0, "email": 2, "tel": 3, "categories": 1 }'
-    jsonInput = "./index.json"
+    jsonInput = open('index.json').read()
     input_file_format = json.loads(jsonInput)
     if not os.path.isdir(output_dir):
         error_msg = "{} is not a directory".format(output_dir)
@@ -92,8 +100,7 @@ if __name__ == '__main__':
     for student in students_array:
         filename = student.file_name()
 
-        illegal = '[\\/:"*?<>|]+'  # illegal characters for windows filenames
-        # remove all illegal characters
+        illegal = '[\\/:"*?<>|]+'
         filename = re.sub(illegal, '', filename)
 
         filepath = os.path.join(output_dir, filename)
